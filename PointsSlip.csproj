@@ -19,4 +19,17 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\Fonts\Akko-Pro-Bold.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Akko-Pro-Bold.ttf" />
+      <None Remove="Assets\Fonts\Akko-Pro-Regular.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Akko-Pro-Regular.ttf" />
+      <None Remove="Assets\Fonts\JetBrainsMono-Regular.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\JetBrainsMono-Regular.ttf" />
+      <None Remove="Assets\Fonts\Phosphor.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Phosphor.ttf" />
+      <None Remove="Assets\Fonts\Phosphor-Fill.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\Phosphor-Fill.ttf" />
+    </ItemGroup>
 </Project>

@@ -6,5 +6,28 @@
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="Styles/AppDefaultStyles.axaml"></StyleInclude>
     </Application.Styles>
+
+    <Application.Resources>
+        <SolidColorBrush x:Key="PrimaryBackground">#14172D</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryForeground">#CFCFCF</SolidColorBrush>
+        <LinearGradientBrush x:Key="PrimaryBackgroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#111214"></GradientStop>
+            <GradientStop Offset="1" Color="#151E3E"></GradientStop>
+        </LinearGradientBrush>
+                 
+        <SolidColorBrush x:Key="PrimaryHoverBackground">#333B5A</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryHoverForeground">White</SolidColorBrush>
+                 
+                 
+        <FontFamily x:Key="AkkoPro">/Assets/Fonts/Akko-Pro-Regular.ttf#Akko Pro</FontFamily>
+        <FontFamily x:Key="AkkoProBold">/Assets/Fonts/Akko-Pro-Bold.ttf#Akko Pro</FontFamily>
+        <FontFamily x:Key="Phosphor">/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
+        <FontFamily x:Key="PhosphorFill">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
+        <FontFamily x:Key="JetBrainsMono">/Assets/Fonts/JetBrainsMono-Regular.ttf#JetBrains Mono</FontFamily>
+                 
+                 
+    </Application.Resources>
+             
 </Application>
