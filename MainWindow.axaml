@@ -7,7 +7,8 @@
         x:Class="PointsSlip.MainWindow"
         Title="PointsSlip">
         
-        <StackPanel Orientation="Vertical">
+        <ScrollViewer>
+                <StackPanel Orientation="Vertical">
                 
                 <Label Content="Digital Points Slip" Classes="title" Margin="0 0 0 0"></Label>
                 
@@ -57,5 +58,5 @@
                         <Label FontSize="45" Foreground="{DynamicResource PrimaryForeground}" Content="points" HorizontalAlignment="Left" Margin="0 0 0 0"></Label>
                 </StackPanel>                
         </StackPanel>
-        
+        </ScrollViewer>
 </Window>
