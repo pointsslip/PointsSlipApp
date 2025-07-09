@@ -17,8 +17,40 @@
         </Border>
     </Design.PreviewWith>
     
+    <Style Selector="NumericUpDown">
+        <Setter Property="FontSize" Value="30"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"></Setter>
+        <Setter Property="Margin" Value="5 0 0 0"></Setter>
+        <Setter Property="Value" Value="0"></Setter>
+        <Setter Property="Minimum" Value="0"></Setter>
+    </Style>
+    
+    <Style Selector="TextBox">
+        <Setter Property="FontSize" Value="30"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="10 20 0 0"></Setter>
+    </Style>
+    
     <Style Selector="Label.title">
         <Setter Property="FontSize" Value="60"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+    </Style>
+    
+    <Style Selector="Label.subtitle">
+        <Setter Property="FontSize" Value="40"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+    </Style>
+    
+    <Style Selector="Label">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"></Setter>
+        <Setter Property="FontSize" Value="25"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="55 0 0 0"></Setter>
     </Style>
     
     <Style Selector="StackPanel">
@@ -53,11 +85,12 @@
     
     <Style Selector="Button">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}"></Setter>
-        <Setter Property="FontSize" Value="60"></Setter>
+        <Setter Property="FontSize" Value="30"></Setter>
         <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"></Setter>
         <Setter Property="CornerRadius" Value="7"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="0 0 0 0"></Setter>
     </Style>
     
     <Style Selector="Label.icon">

@@ -2,13 +2,60 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="800" Height="450"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
+        Width="800" Height="1000"
         x:Class="PointsSlip.MainWindow"
         Title="PointsSlip">
         
         <StackPanel Orientation="Vertical">
-                <Label Content="Digital Points Slip" Classes="title"></Label>
+                
+                <Label Content="Digital Points Slip" Classes="title" Margin="0 0 0 0"></Label>
+                
+                
+                <Label Content="Theory" Classes="subtitle" Margin="50 30 0 0"></Label>
+                
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Pages Read (10 points per page):" Margin="55 20 0 0"></Label>
+                        <NumericUpDown x:Name="pagesIn" Margin="5 20 0 0"></NumericUpDown>
+                </StackPanel>
+                <Label Content="Bonus Points for Pages Read in One Day automatically included. (25 points per 50 pages)" FontSize="15"></Label>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Videos/Live or Recorded Lectures/Teacher Instruction (5 points per minute):" FontSize="19"></Label>
+                        <NumericUpDown x:Name="lecturesIn"></NumericUpDown>
+                </StackPanel>
+                
+                <Label Content="Checkouts" Classes="subtitle"></Label>
+                
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Passing a Theory Checkout (3 points per page):"></Label>
+                        <NumericUpDown x:Name="passcheckoutIn"></NumericUpDown>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Giving a Theory Checkout (when passed, 3 points per page):" FontSize="24"></Label>
+                        <NumericUpDown x:Name="givecheckoutIn"></NumericUpDown>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Finding MUs (5 points per word):"></Label>
+                        <NumericUpDown x:Name="findmuIn"></NumericUpDown>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Giving a Checkout on a Demo (3 points):"></Label>
+                        <NumericUpDown x:Name="checkoutdemoIn"></NumericUpDown>
+                </StackPanel>
+                
+                <Label Content="Word Clearing" Classes="subtitle"></Label>
+                
+                
+                <Button Content="Calculate" Click="calculateButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 250 0 0" Background="#111a49"></Button>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 50 0">
+                        <Label x:Name="display"
+                               FontSize="45" 
+                               HorizontalAlignment="Right"
+                               Foreground="{DynamicResource PrimaryForeground}"
+                               Content="0">
+                        </Label>
+                        <Label FontSize="45" Foreground="{DynamicResource PrimaryForeground}" Content="points" HorizontalAlignment="Left" Margin="0 0 0 0"></Label>
+                </StackPanel>                
         </StackPanel>
         
 </Window>
