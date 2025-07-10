@@ -16,6 +16,11 @@
             <GradientStop Offset="0" Color="#111214"></GradientStop>
             <GradientStop Offset="1" Color="#151E3E"></GradientStop>
         </LinearGradientBrush>
+        <LinearGradientBrush x:Key="PrimaryNumericUpDownGradient" StartPoint="0%, 0%" EndPoint="0%, 0%">
+            <GradientStop Offset="0" Color="#111214"></GradientStop>
+            <GradientStop Offset="1" Color="#151E3E"></GradientStop>
+            <GradientStop Offset="2" Color="#111214"></GradientStop>
+        </LinearGradientBrush>
                  
         <SolidColorBrush x:Key="PrimaryHoverBackground">#333B5A</SolidColorBrush>
         <SolidColorBrush x:Key="PrimaryHoverForeground">White</SolidColorBrush>

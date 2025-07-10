@@ -2,8 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1000"
-        Width="800" Height="1000"
+        mc:Ignorable="d" d:DesignWidth="860" d:DesignHeight="1000"
+        Width="860" Height="1000"
         x:Class="PointsSlip.MainWindow"
         Title="PointsSlip">
         
@@ -46,8 +46,98 @@
                 
                 <Label Content="Word Clearing" Classes="subtitle"></Label>
                 
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="For Each Definition, Derivation, Idiom or Synonym Fully Cleared (3 points):" FontSize="19"></Label>
+                        <NumericUpDown x:Name="wordIn"></NumericUpDown>
+                </StackPanel>        
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Giving/Receiving Word Clearing (150 points per hour):"></Label>
+                        <NumericUpDown x:Name="wordclearingIn"></NumericUpDown>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Theory Coaching - Student and Coach (5 points per line):"></Label>
+                        <NumericUpDown x:Name="theorycoachingIn"></NumericUpDown>
+                </StackPanel>
+                        
+                <Label Content="Drills" Classes="subtitle"></Label>
                 
-                <Button Content="Calculate" Click="calculateButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 250 0 0" Background="#111a49"></Button>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Any drill that takes 15 minutes or less. (40 points):"></Label>
+                        <NumericUpDown x:Name="drillIn"></NumericUpDown>
+                </StackPanel>
+                
+                <Label Content="Practicals" Classes="subtitle"></Label>
+                        
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Verbatim Learning (10 points per line):"></Label>
+                        <NumericUpDown x:Name="verbatimIn"></NumericUpDown>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                        <Label Content="Any Practical, Drill, or Demonstration that takes more than 15 mins" FontSize="25"></Label>
+                        <StackPanel Orientation="Horizontal">
+                                <Label Content="to do. (150 points per hour):"></Label>
+                                <NumericUpDown x:Name="practicalIn"></NumericUpDown>    
+                        </StackPanel>
+                        
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                        <Label Content="Completing a practical, drill, or demonstration that takes more"></Label>
+                        <StackPanel Orientation="Horizontal">
+                                <Label Content="than 15 mins but less than an hour (100 points):"></Label>
+                                <NumericUpDown x:Name="completeshortpracticalIn"></NumericUpDown>    
+                        </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                        <Label Content="Completing a practical, drill, or demonstration that takes more"></Label>
+                        <StackPanel Orientation="Horizontal">
+                                <Label Content="than 1 hour. (500 points):"></Label>
+                                <NumericUpDown x:Name="completelongpracticalIn"></NumericUpDown>
+                        </StackPanel>
+                </StackPanel>
+                        
+                <Label Content="Demonstrations" Classes="subtitle"></Label>
+                        
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Checksheet Requirement (5 points):"></Label>
+                        <NumericUpDown x:Name="checksheetdemoIn"></NumericUpDown>    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Self-Originated (3 points):"></Label>
+                        <NumericUpDown x:Name="demoIn"></NumericUpDown>    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Clay Demo (50 points):"></Label>
+                        <NumericUpDown x:Name="claydemoIn"></NumericUpDown>    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Essays, Charts, Diagrams (10 points):"></Label>
+                        <NumericUpDown x:Name="essayIn"></NumericUpDown>    
+                </StackPanel>
+                        
+                <Label Content="Course Completions" Classes="subtitle"></Label>
+                        
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Course Completions (2000 points):"></Label>
+                        <NumericUpDown x:Name="courseIn"></NumericUpDown>    
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                        <Label Content="Course Completion Bonus"></Label>
+                        <StackPanel Orientation="Horizontal">
+                                <Label Content="(For each day ahead of target, 2000 points):"></Label>
+                                <NumericUpDown x:Name="coursebonusIn"></NumericUpDown>
+                        </StackPanel>
+                </StackPanel>
+                        
+                <Label Content="Penalties" Classes="subtitle"></Label>
+                        
+                <StackPanel Orientation="Horizontal">
+                        <Label Content="Points for each day you are overdue on a course (-200 points):"></Label>
+                        <NumericUpDown x:Name="penaltyIn"></NumericUpDown>
+                </StackPanel>
+                        
+                        
+                
+                <Button Content="Calculate" Click="calculateButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 50 0 0" Background="#111a49"></Button>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 50 0">
                         <Label x:Name="display"
                                FontSize="45" 
