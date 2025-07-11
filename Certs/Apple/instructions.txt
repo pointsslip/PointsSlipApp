@@ -3,6 +3,16 @@ Cert Instructions:
 https://codingflamingo.com/blog/how-to-code-sign-and-notarize-net-console-app-for-mac
 
 
+Make .p12 in Keychain Manager on Andrew Cummings account
+Password for .p12: 1MonKee!!
+
+make base64 with :
+
+base64 -i Certificates.p12 -o Certificates.base64
+
+
+
+
 Sign .app with:
 
 codesign --deep --force --verify --verbose --sign "Your Code Signing Identity" /Users/aricummings/RiderProjects/PointsSlip/bin/Release/net9.0/PointsSlip_x64.app
