@@ -28,8 +28,8 @@ jobs:
       - name: Add Cert to Keychain
         uses: apple-actions/import-codesign-certs@v1
         with:
-          p12-file-base64: ${{ secrets.MAC_CERT_BASE64 }}
-          p12-password: ${{ secrets.MAC_CERT_PASSWORD }}
+          p12-file-base64: Certs/Apple/Certificates.base64
+          p12-password: Certs/Apple/Base64PWD.txt
 
       - name: Sign Binaries
         run: |
