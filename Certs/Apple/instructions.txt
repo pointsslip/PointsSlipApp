@@ -1,3 +1,8 @@
+Cert Instructions:
+
+https://codingflamingo.com/blog/how-to-code-sign-and-notarize-net-console-app-for-mac
+
+
 Sign .app with:
 
 codesign --deep --force --verify --verbose --sign "Your Code Signing Identity" /Users/aricummings/RiderProjects/PointsSlip/bin/Release/net9.0/PointsSlip_x64.app
