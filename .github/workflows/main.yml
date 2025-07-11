@@ -1,0 +1,51 @@
+
+name: MAC Signing
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+        include-prerelease: true
+           
+        
+    - name: dotnet publish
+      run: dotnet publish PointsSlip.csproj -c Release -r osx-x64 -p:UseAppHost=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --self-contained true -p:PublishReadyToRunShowWarnings=true  -o bin/osx-x64
+
+    - name: delete .pdb
+      run: rm bin/osx-x64/*.pdb
+
+    - name: chmod 
+      run: chmod +x bin/osx-x64.PointsSlip
+
+
+    - name: Add Cert to Keychain
+      uses: apple-actions/import-codesign-certs@v1
+      with: 
+        p12-file-base64: ${{ secrets.MAC_CERT_BASE64 }}
+        p12-password: ${{ secrets.MAC_CERT_PASSWORD }}
+    
+    - name: Sign Binaries 
+      run: "sh Certs/Apple/SignMac.sh \"bin/osx-x64/PointsSlip\" \"bin/osx-x64/*\" \"Developer ID Application: Andrew Cummings (XLA5QQ65S8)\" \"Certs/Apple/entitlements.plist""
+
+
+    - name: Zip Binary for Notarizing
+      run: zip -rj bin/zips/PointsSlip_osx-x64.zip bin/osx-x64/*
+    
+    - name: Notarize Binaries 
+      run: "sh Certs/Apple/Notarize.sh \"andrew@artistechendeavors.com\" \"${{ secrets.MAC_DEV_PASSWORD }}\" \"group.com.artistechendeavors.com\" \"XLA5QQ65S8\" \"bin/zips/PointsSlip_osx-x64.zip\""
+    
+    - name: Upload artifact for deployment job
+      uses: actions\upload-artifact@v2
+      with:
+        name: PointsSlip-MacOS-x64
+        path: bin/osx-x64
