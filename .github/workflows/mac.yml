@@ -33,7 +33,7 @@ jobs:
 
       - name: Sign Binaries
         run: |
-          sh Certs/Apple/SignMac.sh "bin/osx-x64/PointsSlip" bin/osx-x64/* "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" "Certs/Apple/entitlements.plist"
+          sh Certs/Apple/MacSign.sh "bin/osx-x64/PointsSlip" bin/osx-x64/* "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" "Certs/Apple/entitlements.plist"
 
       - name: Zip Binary for Notarizing
         run: zip -rj bin/zips/PointsSlip_osx-x64.zip bin/osx-x64/*
