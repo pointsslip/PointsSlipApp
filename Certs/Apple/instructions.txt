@@ -1,0 +1,11 @@
+Sign .app with:
+
+codesign --deep --force --verify --verbose --sign "Your Code Signing Identity" /Users/aricummings/RiderProjects/PointsSlip/bin/Release/net9.0/PointsSlip_x64.app
+
+Remove signature with:
+
+codesign --remove-signature /Users/aricummings/RiderProjects/PointsSlip/bin/Release/net9.0/PointsSlip_x64.app
+
+verify signature with:
+
+codesign -vvv --deep --strict --verbose /Users/aricummings/RiderProjects/PointsSlip/bin/Release/net9.0/PointsSlip_x64.app
