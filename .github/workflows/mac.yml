@@ -42,7 +42,7 @@ jobs:
         run: sh Certs/Apple/Notarize.sh "andrew@artistechendeavors.com" "${{ secrets.MAC_DEV_PASSWORD }}" "group.com.artistechendeavors.com" "XLA5QQ65S8" "bin/zips/PointsSlip_osx-x64.zip"
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: PointsSlip-MacOS-x64
           path: bin/osx-x64
