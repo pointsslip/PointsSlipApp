@@ -12,12 +12,13 @@ base64 -i Certificates.p12 -o Certificates.base64
 
 Sign .app with:
 
-codesign --deep --force --verify --verbose --sign "Your Code Signing Identity" /Users/aricummings/RiderProjects/PointsSlip/bin/Release/net9.0/PointsSlip_x64.app
+codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" bin/osx-x64/PointsSlip.app
+
 
 Remove signature with:
 
-codesign --remove-signature /Users/aricummings/RiderProjects/PointsSlip/bin/Release/net9.0/PointsSlip_x64.app
+codesign --remove-signature bin/osx-x64/PointsSlip.app
 
 verify signature with:
 
-codesign -vvv --deep --strict --verbose /Users/aricummings/RiderProjects/PointsSlip/bin/Release/net9.0/PointsSlip_x64.app
+codesign -vvv --deep --strict --verbose bin/osx-x64/PointsSlip.app

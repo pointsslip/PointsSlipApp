@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="860" d:DesignHeight="1000"
         Width="860" Height="1000"
         x:Class="PointsSlip.MainWindow"
-        Title="PointsSlip">
+        Title="Points Slips">
         
         <ScrollViewer>
                 <StackPanel Orientation="Vertical">

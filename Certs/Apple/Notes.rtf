@@ -5,4 +5,11 @@
 \margl1440\margr1440\vieww11520\viewh8400\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Make the publish.sh copy the folder, right now it errors saying \'93PointSlip.app is a folder and can not be copied\'94}
+\f0\fs24 \cf0 Make the executable universal with the lipo command\
+\
+{\field{\*\fldinst{HYPERLINK "https://michaeljohnpena.com/blog/dotnet-macos-universal/"}}{\fldrslt https://michaeljohnpena.com/blog/dotnet-macos-universal/}}\
+\
+lipo -create -output MacDotNetUniversal bin/release/net6.0/osx.11.0-x64/publish/MacDotNet bin/release/net6.0/osx.11.0-arm64/publish/MacDotNet\
+\
+\
+}
