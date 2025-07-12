@@ -27,8 +27,8 @@ echo
 
 
 # For each set of files... we'll assume they each been newly built.  Copy to signed folder, then sign.
-src="/Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/bin/osx/PointsSlip_osx.dmg"
-dst="/Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/bin/osx/PointsSlip_osx_Notarized.dmg"
+src="/Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/bin/osx-x64/PointsSlip_osx-x64.dmg"
+dst="/Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/bin/osx-x64/PointsSlip_osx-x64_Notarized.dmg"
 mv ${src} ${dst}
 echo BEGIN: $dst
 xcrun notarytool submit "${dst}" --apple-id "${appleID}" --password "${password}" --team-id "${teamID}" --wait
