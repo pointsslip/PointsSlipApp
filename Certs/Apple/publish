@@ -1,3 +1,5 @@
+#!/bin/bash
+
 rm -fr bin
 mkdir bin
 dotnet publish PointsSlip.csproj -c Release -r osx-x64 -p:UseAppHost=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --self-contained true -p:PublishReadyToRunShowWarnings=true -o bin/osx-x64
@@ -14,29 +16,52 @@ mkdir bin/osx
 lipo -create -output bin/osx/PointsSlip bin/osx-x64/PointsSlip bin/osx-arm64/PointsSlip
 chmod +x bin/osx/PointsSlip
 
-codesign --remove-signature bin/osx/PointsSlip
-
 codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --options runtime "bin/osx/PointsSlip"
+
+codesign -vvv --strict --verbose bin/osx/PointsSlip
+
+
+zip -j bin/osx/PointsSlip.zip bin/osx/PointsSlip
+
+echo
+echo
+echo ******************************************
+echo
+echo
+xcrun notarytool submit "bin/osx/PointsSlip.zip" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8" --wait
+echo
+echo
+echo ******************************************
+echo
+echo
+
+rm -fr bin/osx/PointsSlip
+unzip bin/osx/PointsSlip.zip -d bin/osx/
+rm -fr bin/osx/PointsSlip.zip
 
 cp -R Assets/Templates/PointsSlip.app/ bin/osx/PointsSlip.app/
 cp bin/osx/PointsSlip bin/osx/PointsSlip.app/Contents/MacOS/PointsSlip
 cp Assets/Logos/logo.icns bin/osx/PointsSlip.app/Contents/Resources/logo.icns
 
-rm bin/osx/PointsSlip
 rm -fr bin/Release
-
+rm -fr bin/osx-x64
+rm -fr bin/osx-arm64
+rm -fr bin/osx/PointsSlip
 mkdir bin/osx/PointsSlip
 mv bin/osx/PointsSlip.app bin/osx/PointsSlip/PointsSlip.app
 
 ln -s /Applications bin/osx/PointsSlip/Applications
 
-codesign --remove-signature bin/osx/PointsSlip/PointsSlip.app
+codesign --remove-signature "bin/osx/PointsSlip/PointsSlip.app/Contents/Resources/logo.icns"
+codesign --remove-signature "bin/osx/PointsSlip/PointsSlip.app/Contents/info.plist"
+codesign --remove-signature "bin/osx/PointsSlip/PointsSlip.app"
 
-codesign --deep --force --verify --verbose --options runtime --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" "bin/osx/PointsSlip/PointsSlip.app"
+codesign --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --options runtime "bin/osx/PointsSlip/PointsSlip.app/Contents/Resources/logo.icns"
+codesign --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --options runtime "bin/osx/PointsSlip/PointsSlip.app/Contents/info.plist"
+codesign --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" "bin/osx/PointsSlip/PointsSlip.app"
 
 codesign -vvv --deep --strict --verbose bin/osx/PointsSlip/PointsSlip.app
-
-
+spctl -a -vv "bin/osx/PointsSlip/PointsSlip.app"
 
 create-dmg bin/osx/PointsSlip_osx.dmg bin/osx/PointsSlip/ --volname "Points Slip" --volicon /Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/Assets/Logos/logo.icns --window-size 300 500 --background /Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/Assets/Images/background.png
 
@@ -45,24 +70,21 @@ codesign --deep --force --verify --verbose --sign "Developer ID Application: And
 
 codesign -vvv --deep --strict --verbose bin/osx/PointsSlip_osx.dmg
 
-echo
-echo
-echo ******************************************
-echo
-echo
-
-xcrun notarytool submit "bin/osx/PointsSlip_osx.dmg" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8" --wait
-xcrun stapler staple "bin/osx/PointsSlip_osx.dmg"
-echo
-echo
-echo ******************************************
-echo
-echo
-
 hdiutil attach "bin/osx/PointsSlip_osx.dmg"
 spctl -a -vv "/Volumes/PointsSlip_osx 1/PointsSlip.app"
 hdiutil detach "/Volumes/PointsSlip_osx 1/"
 
-# to check the log of the notarization:
-# xcrun notarytool log "fcd59afc-e801-4890-9cfc-73ab9f8cb77d" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8"
+echo
+echo
+echo ******************************************
+echo
+echo
+xcrun notarytool submit "bin/osx/PointsSlip_osx.dmg" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8" --wait
+echo
+echo
+echo ******************************************
+echo
+echo
 
+# to check the log of the notarization:
+# xcrun notarytool log "ad0132a2-1f95-4be2-bc2c-7b877acb6665" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8"
