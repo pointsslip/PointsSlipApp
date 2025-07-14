@@ -32,10 +32,16 @@ codesign --deep --force --verify --verbose --sign "Developer ID Application: And
 
 
 mkdir bin/osx/PointsSlipDMG
-
+mv bin/osx/PointsSlip.app bin/osx/PointsSlipDMG/PointsSlip.app
 create-dmg bin/osx/PointsSlip.dmg bin/osx/PointsSlipDMG/ --volname "Points Slip" --volicon /Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/Assets/Logos/logo.icns --window-size 300 500 --background /Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/Assets/Images/background.png
 
 xcrun notarytool submit "bin/osx/PointsSlip.dmg" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8" --wait
+
+mount bin/osx/PointsSlip.dmg
+spctl -a -vv "/Volumes/PointsSlip/PointsSlip.app"
+unmount /Volumes/PointsSlip
+
+
 
 # to check the log of the notarization:
 # xcrun notarytool log "ad0132a2-1f95-4be2-bc2c-7b877acb6665" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8"
