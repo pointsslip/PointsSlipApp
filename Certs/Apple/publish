@@ -44,4 +44,4 @@ unmount /Volumes/PointsSlip
 
 
 # to check the log of the notarization:
-# xcrun notarytool log "ad0132a2-1f95-4be2-bc2c-7b877acb6665" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8"
+# xcrun notarytool log "6406543c-158a-40f5-b541-d844f1719891" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8"
