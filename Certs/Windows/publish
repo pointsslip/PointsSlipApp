@@ -3,6 +3,7 @@
 dotnet publish PointsSlip.csproj -c Release -r win-x64 -p:UseAppHost=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --self-contained true -p:PublishReadyToRunShowWarnings=true -o bin/win-x64
 rm -fr bin/Release
 rm -fr bin/win-x64/PointsSlip.pdb
+rm -fr bin/Debug
 
 set -exuo pipefail
 
@@ -27,10 +28,6 @@ if ! command -v osslsigncode >/dev/null 2>&1 ; then
     exit 1
 fi
 
-orig_file="${input_file}_unsigned"
+mv "bin/win-x64/PointsSlip.exe" "bin/win-x64/PointsSlip_unsigned.exe"
 
-mv "$input_file" "$orig_file"
-
-osslsigncode sign -certs "./certs/sign.crt" -key "./certs/sign.key" -n "Points Slip Calculator" -i "https://github.com/ariplayz/PointsSlipApp/" -t "http://timestamp.sectigo.com" -in "$orig_file" -out "$input_file"
-
-rm "$orig_file"
+osslsigncode sign -certs "Certs/Windows/LGI_SectigoEVCodeSigningCert.cer" -n "Points Slip Calculator" -i "https://github.com/ariplayz/PointsSlipApp/" -t "http://timestamp.sectigo.com" -in "bin/win-x64/PointsSlip_unsigned.exe" -out "bin/win-x64/PointsSlip.exe"
