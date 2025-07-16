@@ -1,6 +1,10 @@
 #!/bin/bash
 
-rm -fr bin
+rm -fr bin/osx
+rm -fr bin/osx-x64
+rm -fr bin/osx-arm64
+rm -fr bin/Debug
+rm -fr bin/Release
 mkdir bin
 dotnet publish PointsSlip.csproj -c Release -r osx-x64 -p:UseAppHost=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --self-contained true -p:PublishReadyToRunShowWarnings=true -o bin/osx-x64
 dotnet publish PointsSlip.csproj -c Release -r osx-arm64 -p:UseAppHost=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --self-contained true -p:PublishReadyToRunShowWarnings=true -o bin/osx-arm64
@@ -15,7 +19,7 @@ codesign --deep --force --verify --verbose --sign "Developer ID Application: And
 mkdir bin/osx
 lipo -create -output bin/osx/PointsSlip bin/osx-x64/PointsSlip bin/osx-arm64/PointsSlip
 
-codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --options runtime "bin/osx/PointsSlip"
+codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" "bin/osx/PointsSlip"
 
 codesign -vvv --strict --verbose bin/osx/PointsSlip
 
@@ -25,7 +29,7 @@ rm -fr bin/osx-arm64
 
 cp -r Assets/Templates/PointsSlip.app bin/osx/PointsSlip.app
 cp Assets/Logos/logo.icns bin/osx/PointsSlip.app/Contents/Resources/logo.icns
-mv bin/osx/PointsSlip bin/osx/PointsSlip.app/Contents/MacOS/PointsSlip
+cp bin/osx/PointsSlip bin/osx/PointsSlip.app/Contents/MacOS/PointsSlip
 
 codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" "bin/osx/PointsSlip.app"
 
