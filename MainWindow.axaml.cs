@@ -102,66 +102,92 @@ public partial class MainWindow : Window
         try
         {
             var data = new List<string>();
+            // Add current date as the first line
+            data.Add(DateTime.Now.Date.ToString("yyyy-MM-dd"));
             data.Add(string.Join(",", controlMap.Keys));
             data.Add(string.Join(",", controlMap.Values.Select(control => 
                 ((double)(control?.Value ?? 0)).ToString("F0"))));
 
-            File.WriteAllLines(CSV_FILE_PATH, data);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error saving values: {ex.Message}");
-        }
+        File.WriteAllLines(CSV_FILE_PATH, data);
     }
-
-    private void LoadValuesFromCsv()
+    catch (Exception ex)
     {
-        try
+        Console.WriteLine($"Error saving values: {ex.Message}");
+    }
+}
+
+private void LoadValuesFromCsv()
+{
+    try
+    {
+        if (!File.Exists(CSV_FILE_PATH))
         {
-            if (!File.Exists(CSV_FILE_PATH))
+            Console.WriteLine("CSV file not found, initializing with zeros");
+            InitializeNumericControls();
+            SaveValuesToCsv(); // Save initial state with current date
+            return;
+        }
+
+        string[] lines = File.ReadAllLines(CSV_FILE_PATH);
+        Console.WriteLine($"Read {lines.Length} lines from CSV");
+        
+        // Check if we have at least 3 lines (date, headers, values)
+        if (lines.Length >= 3)
+        {
+            // Parse the saved date
+            if (DateTime.TryParse(lines[0], out DateTime savedDate))
             {
-                Console.WriteLine("CSV file not found, initializing with zeros");
-                InitializeNumericControls();
-                return;
-            }
-
-            string[] lines = File.ReadAllLines(CSV_FILE_PATH);
-            Console.WriteLine($"Read {lines.Length} lines from CSV");
-            
-            if (lines.Length >= 2)
-            {
-                string[] headers = lines[0].Split(',');
-                string[] values = lines[1].Split(',');
-
-                Console.WriteLine($"Found {headers.Length} headers and {values.Length} values");
-
-                for (int i = 0; i < headers.Length && i < values.Length; i++)
+                // If the saved date is not today, initialize with zeros
+                if (savedDate.Date != DateTime.Now.Date)
                 {
-                    if (controlMap.TryGetValue(headers[i], out var control) && 
-                        control != null && 
-                        double.TryParse(values[i], out double value))
-                    {
-                        control.Value = (decimal)value;
-                        Console.WriteLine($"Loaded {headers[i]} = {value}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to load value for {headers[i]}");
-                    }
+                    Console.WriteLine("New day detected, resetting values to zero");
+                    InitializeNumericControls();
+                    SaveValuesToCsv(); // Save the reset state with current date
+                    return;
                 }
             }
             else
             {
-                Console.WriteLine("CSV file has insufficient lines");
+                Console.WriteLine("Invalid date format in CSV, resetting values");
                 InitializeNumericControls();
+                SaveValuesToCsv();
+                return;
+            }
+
+            string[] headers = lines[1].Split(',');
+            string[] values = lines[2].Split(',');
+
+            Console.WriteLine($"Found {headers.Length} headers and {values.Length} values");
+
+            for (int i = 0; i < headers.Length && i < values.Length; i++)
+            {
+                if (controlMap.TryGetValue(headers[i], out var control) && 
+                    control != null && 
+                    double.TryParse(values[i], out double value))
+                {
+                    control.Value = (decimal)value;
+                    Console.WriteLine($"Loaded {headers[i]} = {value}");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to load value for {headers[i]}");
+                }
             }
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine($"Error loading values: {ex.Message}");
+            Console.WriteLine("CSV file has insufficient lines");
             InitializeNumericControls();
+            SaveValuesToCsv(); // Save initial state with current date
         }
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error loading values: {ex.Message}");
+        InitializeNumericControls();
+        SaveValuesToCsv(); // Save initial state with current date
+    }
+}
 
     private void InitializeNumericControls()
     {
