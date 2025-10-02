@@ -26,6 +26,7 @@ cp bin/osx/PointsSlip bin/osx/PointsSlip.app/Contents/MacOS/PointsSlip
 productbuild --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --component bin/osx/PointsSlip.app bin/osx/PointsSlip.pkg
 
 xcrun notarytool submit "bin/osx/PointsSlip.pkg" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8" --wait
+xcrun stapler staple "bin/osx/PointsSlip.pkg"
 
 spctl -a -vv "/Volumes/PointsSlip/PointsSlip.app"
 
