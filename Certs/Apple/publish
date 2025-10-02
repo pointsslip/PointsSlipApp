@@ -12,16 +12,8 @@ dotnet publish PointsSlip.csproj -c Release -r osx-arm64 -p:UseAppHost=true -p:P
 chmod +x bin/osx-x64/PointsSlip
 chmod +x bin/osx-arm64/PointsSlip
 
-codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --options runtime "bin/osx-x64/PointsSlip"
-
-codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --options runtime "bin/osx-arm64/PointsSlip"
-
 mkdir bin/osx
 lipo -create -output bin/osx/PointsSlip bin/osx-x64/PointsSlip bin/osx-arm64/PointsSlip
-
-codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" "bin/osx/PointsSlip"
-
-codesign -vvv --strict --verbose bin/osx/PointsSlip
 
 rm -fr bin/Release
 rm -fr bin/osx-x64
@@ -31,50 +23,11 @@ cp -r Assets/Templates/PointsSlip.app bin/osx/PointsSlip.app
 cp Assets/Logos/logo.icns bin/osx/PointsSlip.app/Contents/Resources/logo.icns
 cp bin/osx/PointsSlip bin/osx/PointsSlip.app/Contents/MacOS/PointsSlip
 
-codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" "bin/osx/PointsSlip.app"
+productbuild --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --component bin/osx/PointsSlip.app bin/osx/PointsSlip.pkg
 
+xcrun notarytool submit "bin/osx/PointsSlip.pkg" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8" --wait
 
-mkdir bin/osx/PointsSlipDMG
-mv bin/osx/PointsSlip.app bin/osx/PointsSlipDMG/PointsSlip.app
-
-hdiutil create bin/osx/PointsSlipWritable.dmg -srcfolder bin/osx/PointsSlipDMG -fs APFS -format UDRW -volname "Points Slip"
-
-# Mount the writable DMG
-hdiutil attach bin/osx/PointsSlipWritable.dmg -mountpoint /Volumes/PointsSlip
-
-ln -s /Applications /Volumes/PointsSlip/Applications
-
-# Set the volume i con
-cp /Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/Assets/Logos/logo.icns /Volumes/PointsSlip/.VolumeIcon.icns
-SetFile -a C /Volumes/PointsSlip/.VolumeIcon.icns
-
-# Set the background image
-mkdir /Volumes/PointsSlip/.background
-cp /Users/hauchmahler/Dropbox/Mac/Documents/GitHub/PointsSlipApp/Assets/Images/background.png /Volumes/PointsSlip/.background/background.png
-echo
-open /Volumes/PointsSlip
-echo
-echo Set the background and attributes now.
-echo Do not close the window, just press enter when done.
-echo
-echo Press Enter to continue.
-read
-
-# Detach the writable DMG
-hdiutil detach /Volumes/PointsSlip
-
-# Convert the writable DMG to a read-only DMG
-hdiutil convert bin/osx/PointsSlipWritable.dmg -format UDRO -o bin/osx/PointsSlip.dmg
-
-rm -fr bin/osx/PointsSlipWritable.dmg
-
-codesign --deep --force --verify --verbose --sign "Developer ID Application: Andrew Cummings (XLA5QQ65S8)" --options runtime "bin/osx/PointsSlip.dmg"
-
-xcrun notarytool submit "bin/osx/PointsSlip.dmg" --apple-id "andrew@artistechendeavors.com" --password "voqy-gjtn-qqzv-jnap" --team-id "XLA5QQ65S8" --wait
-
-hdiutil attach bin/osx/PointsSlip.dmg -mountpoint /Volumes/PointsSlip
 spctl -a -vv "/Volumes/PointsSlip/PointsSlip.app"
-hdiutil detach /Volumes/PointsSlip
 
 
 
